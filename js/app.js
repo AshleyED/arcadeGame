@@ -22,6 +22,10 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += (this.speed +100) * dt
+    if (this.x > 600) {
+      this.x = -100;
+    }
+    return;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -42,22 +46,21 @@ var Player = function(x, y, speed) {
 
 Player.prototype.update = function() {
     //add the code here does nothing
-    this.x += (this.speed +100) * dt
+    //this.x += (this.speed +100) * dt
 };
 
 Player.prototype.render = function() {
-  ctx.drawImage(Resources.get(this.sprite), this.x, this.y); //i added does nothing
+  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Player.prototype.handleInput = function (key) {
-  //is this right? add the rest of the code. does nothing currently
-  if (key === 'left') {
+  if (key === 'left' && this.x > 0) {
     this.x -= 100
-  } else if (key === 'right') {
+  } else if (key === 'right' && this.x < 400) {
     this.x += 100
-  } else if (key === 'up') {
+  } else if (key === 'up' && this.y > 0) {
     this.y -= 82
-  } else if (key === 'down') {
+  } else if (key === 'down' && this.y < 400) {
     this.y += 82
   }
 };
