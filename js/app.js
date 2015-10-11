@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) { //I added this.x and this.y
+var Enemy = function(x, y, speed) { //I added this.x and this.y
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     // var obj = {};
@@ -21,8 +21,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-
-    //math.random function?
+    this.x += (this.speed +100) * dt
 };
 
 // Draw the enemy on the screen, required method for game
@@ -33,23 +32,34 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y) {
+var Player = function(x, y, speed) {
   //add player class info
   this.x = x;
   this.y = y; //i added does nothing
+  this.speed = 1;
   this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function() {
     //add the code here does nothing
+    this.x += (this.speed +100) * dt
 };
 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y); //i added does nothing
 };
 
-Player.prototype.handleInput = function () {
+Player.prototype.handleInput = function (key) {
   //is this right? add the rest of the code. does nothing currently
+  if (key === 'left') {
+    this.x -= 100
+  } else if (key === 'right') {
+    this.x += 100
+  } else if (key === 'up') {
+    this.y -= 82
+  } else if (key === 'down') {
+    this.y += 82
+  }
 };
  var player = new Player(200, 400); //i added does nothing
 // Now instantiate your objects.
@@ -57,8 +67,8 @@ Player.prototype.handleInput = function () {
 // Place the player object in a variable called player
 var allEnemies = [
   new Enemy(000, 60),
-  new Enemy(000, 140),
-  new Enemy(000, 230) //I added this it does nothing
+  new Enemy(000, 145),
+  new Enemy(000, 230)
 ];
 
 
