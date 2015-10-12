@@ -11,7 +11,7 @@ var Enemy = function(x, y, speed) { //I added this.x and this.y
     // a helper we've provided to easily load images
     this.x = x; //
     this.y = y;//
-    this.speed = 1;//
+    this.speed = Math.floor(Math.random() * 125) + 5;//
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -24,8 +24,8 @@ Enemy.prototype.update = function(dt) {
     this.x += (this.speed +100) * dt
     if (this.x > 600) {
       this.x = -100;
-    }
-    return;
+      this.speed = (Math.floor(Math.random() * 200) + 25);
+  }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -46,7 +46,11 @@ var Player = function(x, y, speed) {
 
 Player.prototype.update = function() {
     //add the code here does nothing
-    //this.x += (this.speed +100) * dt
+    ////if (this.y = 100) {
+    //  this.x = 200;
+    //  this.y = 400;
+  //  }
+  //  return;
 };
 
 Player.prototype.render = function() {
@@ -69,9 +73,9 @@ Player.prototype.handleInput = function (key) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [
-  new Enemy(000, 60),
-  new Enemy(000, 145),
-  new Enemy(000, 230)
+  new Enemy(000, 60, 10),
+  new Enemy(000, 145, 10),
+  new Enemy(000, 230, 10)
 ];
 
 
