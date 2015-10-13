@@ -39,18 +39,41 @@ Enemy.prototype.render = function() {
 var Player = function(x, y, speed) {
   //add player class info
   this.x = x;
-  this.y = y; //i added does nothing
+  this.y = y;
   this.speed = 1;
   this.sprite = 'images/char-boy.png';
 };
 
+Player.prototype.reset = function () {
+  this.x = 200;
+  this.y = 400;
+};
+
 Player.prototype.update = function() {
     //add the code here does nothing
-    ////if (this.y = 100) {
-    //  this.x = 200;
-    //  this.y = 400;
-  //  }
-  //  return;
+//    if (Player.y === Enemy.y && Player.x === Enemy.x) {
+//      this.x = 200;
+//      this.y = 400;
+//  }
+  if (player.y < -8) {
+    player.reset();
+  }
+  if (player.x < enemy1.x + 70 &&
+   player.x + 70 > enemy1.x &&
+   player.y < enemy1.y + 70 &&
+   70 + player.y > enemy1.y) {
+     player.reset();
+  } else if (player.x < enemy2.x + 70 &&
+   player.x + 70 > enemy2.x &&
+   player.y < enemy2.y + 70 &&
+   70 + player.y > enemy2.y) {
+     player.reset();
+  } else if (player.x < enemy3.x + 70 &&
+   player.x + 70 > enemy3.x &&
+   player.y < enemy3.y + 70 &&
+   70 + player.y > enemy3.y) {
+     player.reset();
+  }
 };
 
 Player.prototype.render = function() {
@@ -68,17 +91,20 @@ Player.prototype.handleInput = function (key) {
     this.y += 82
   }
 };
- var player = new Player(200, 400); //i added does nothing
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+var enemy1 = new Enemy (000, 60, 10);
+var enemy2 = new Enemy (000, 145, 10);
+var enemy3 = new Enemy (000, 230, 10);
 var allEnemies = [
-  new Enemy(000, 60, 10),
-  new Enemy(000, 145, 10),
-  new Enemy(000, 230, 10)
+  enemy1,
+  enemy2,
+  enemy3
 ];
 
-
+var player = new Player(200, 400);
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
