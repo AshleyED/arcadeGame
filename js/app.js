@@ -1,17 +1,12 @@
 // Enemies our player must avoid
-var Enemy = function(x, y, speed) { //I added this.x and this.y
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    // var obj = {};
-    // obj.move = function() {
-    //   obj.loc++;
-    // };
-    // return obj; //I added lines 5-9 so far they do nothing
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.x = x; //
-    this.y = y;//
-    this.speed = Math.floor(Math.random() * 125) + 5;//
+    this.x = x;
+    this.y = y;
+    this.speed = Math.floor(Math.random() * 125) + 5;
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -50,11 +45,6 @@ Player.prototype.reset = function () {
 };
 
 Player.prototype.update = function() {
-    //add the code here does nothing
-//    if (Player.y === Enemy.y && Player.x === Enemy.x) {
-//      this.x = 200;
-//      this.y = 400;
-//  }
   if (player.y < -8) {
     player.reset();
   }
