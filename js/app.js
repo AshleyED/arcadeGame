@@ -1,3 +1,5 @@
+//var score = 0;
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
@@ -36,7 +38,8 @@ var Player = function(x, y, speed) {
   this.x = x;
   this.y = y;
   this.speed = 1;
-  this.sprite = 'images/char-boy.png';
+  this.score = 0;
+  this.sprite = 'images/char-horn-girl.png';
 };
 
 Player.prototype.reset = function () {
@@ -47,6 +50,9 @@ Player.prototype.reset = function () {
 Player.prototype.update = function() {
   if (player.y < -8) {
     player.reset();
+    this.score += 1;
+    console.log(this.score);
+    //$(".display").append(score).replaceWith("Score = " + score);
   }
   if (player.x < enemy1.x + 70 &&
    player.x + 70 > enemy1.x &&
@@ -95,6 +101,7 @@ var allEnemies = [
 ];
 
 var player = new Player(200, 400);
+
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
