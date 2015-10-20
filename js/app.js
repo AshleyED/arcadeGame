@@ -50,7 +50,7 @@ Player.prototype.update = function() {
     player.reset();
     score += 10;
     console.log(score);
-    //$(".display").append(score).replaceWith("Score = " + score);
+    $(".display").text(score);
   }
   if (player.x < enemy1.x + 70 &&
    player.x + 70 > enemy1.x &&
@@ -58,6 +58,7 @@ Player.prototype.update = function() {
    70 + player.y > enemy1.y) {
      score -= 5;
      console.log(score);
+     $(".display").text(score);
      player.reset();
   } else if (player.x < enemy2.x + 70 &&
    player.x + 70 > enemy2.x &&
@@ -65,6 +66,7 @@ Player.prototype.update = function() {
    70 + player.y > enemy2.y) {
      score -= 5;
      console.log(score);
+     $(".display").text(score);
      player.reset();
   } else if (player.x < enemy3.x + 70 &&
    player.x + 70 > enemy3.x &&
@@ -72,6 +74,7 @@ Player.prototype.update = function() {
    70 + player.y > enemy3.y) {
      score -= 5;
      console.log(score);
+     $(".display").text(score);
      player.reset();
   }
 };
@@ -115,6 +118,7 @@ Star.prototype.update = function () {
    70 + star.y > player.y) {
      score += 2;
      console.log(score);
+     $(".display").text(score);
      star.reset();
   }
 
