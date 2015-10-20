@@ -21,7 +21,7 @@ Enemy.prototype.update = function(dt) {
     this.x += (this.speed +100) * dt
     if (this.x > 600) {
       this.x = -100;
-      this.speed = (Math.floor(Math.random() * 200) + 25);
+      this.speed = (Math.floor(Math.random() * 200) + 125);
   }
 };
 
@@ -33,11 +33,10 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y, speed) {
+var Player = function(x, y) {
   //add player class info
   this.x = x;
   this.y = y;
-  this.speed = 1;
   this.score = 0;
   this.sprite = 'images/char-horn-girl.png';
 };
@@ -88,6 +87,47 @@ Player.prototype.handleInput = function (key) {
   }
 };
 
+var Star = function (x, y) {
+  this.x = x;
+  this.y = y;
+  this.count = 0;
+  this.sprite = 'images/Star.png';
+};
+
+Star.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Star.prototype.reset = function () {
+  this.x = Math.floor(Math.random() * 300) + 120;
+  this.y = Math.floor(Math.random() * 300) + 120;
+};
+
+Star.prototype.update = function () {
+  if (star.x < player.x + 70 &&
+   star.x + 70 > player.x &&
+   star.y < player.y + 70 &&
+   70 + star.y > player.y) {
+     star.reset();
+  }
+
+  if (star.x < enemy1.x + 70 &&
+   star.x + 70 > enemy1.x &&
+   star.y < enemy1.y + 70 &&
+   70 + star.y > enemy1.y) {
+     star.reset();
+  } else if (star.x < enemy2.x + 70 &&
+   star.x + 70 > enemy2.x &&
+   star.y < enemy2.y + 70 &&
+   70 + star.y > enemy2.y) {
+     star.reset();
+  } else if (star.x < enemy3.x + 70 &&
+   star.x + 70 > enemy3.x &&
+   star.y < enemy3.y + 70 &&
+   70 + star.y > enemy3.y) {
+     star.reset();
+  }
+};
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -101,6 +141,8 @@ var allEnemies = [
 ];
 
 var player = new Player(200, 400);
+
+var star = new Star(100, 75);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
