@@ -1,4 +1,4 @@
-//var score = 0;
+var score = 0;
 
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
@@ -37,7 +37,6 @@ var Player = function(x, y) {
   //add player class info
   this.x = x;
   this.y = y;
-  this.score = 0;
   this.sprite = 'images/char-horn-girl.png';
 };
 
@@ -49,24 +48,30 @@ Player.prototype.reset = function () {
 Player.prototype.update = function() {
   if (player.y < -8) {
     player.reset();
-    this.score += 1;
-    console.log(this.score);
+    score += 10;
+    console.log(score);
     //$(".display").append(score).replaceWith("Score = " + score);
   }
   if (player.x < enemy1.x + 70 &&
    player.x + 70 > enemy1.x &&
    player.y < enemy1.y + 70 &&
    70 + player.y > enemy1.y) {
+     score -= 5;
+     console.log(score);
      player.reset();
   } else if (player.x < enemy2.x + 70 &&
    player.x + 70 > enemy2.x &&
    player.y < enemy2.y + 70 &&
    70 + player.y > enemy2.y) {
+     score -= 5;
+     console.log(score);
      player.reset();
   } else if (player.x < enemy3.x + 70 &&
    player.x + 70 > enemy3.x &&
    player.y < enemy3.y + 70 &&
    70 + player.y > enemy3.y) {
+     score -= 5;
+     console.log(score);
      player.reset();
   }
 };
@@ -108,6 +113,8 @@ Star.prototype.update = function () {
    star.x + 70 > player.x &&
    star.y < player.y + 70 &&
    70 + star.y > player.y) {
+     score += 2;
+     console.log(score);
      star.reset();
   }
 
