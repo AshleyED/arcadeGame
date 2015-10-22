@@ -1,3 +1,5 @@
+//TODO Change player.___ to this.___
+
 var score = 0;
 
 // Enemies our player must avoid
