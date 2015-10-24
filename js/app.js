@@ -1,25 +1,27 @@
-//TODO Change player.___ to this.___
+//Global game score variable, begins at 0
+var gameScore = 0;
 
-var score = 0;
+//Global star count variable, begins at 0
+var starCount = 0;
 
-// Enemies our player must avoid
+//End of game function, calculates when you reach the goal and congratulates the player
+var endGame = function () {
+  if (gameScore > 19 && starCount > 2) {
+    console.log("You won!");
+    $(".winner").text(" YOU DID IT! Keep playing!!");
+  }
+};
+
+// Enemy object. Function takes into account coordinates, speed, and image
 var Enemy = function(x, y, speed) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
     this.x = x;
     this.y = y;
     this.speed = Math.floor(Math.random() * 125) + 5;
     this.sprite = 'images/enemy-bug.png';
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+// Updates each enemy's position, resets at a random speed each time it's called
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
     this.x += (this.speed +100) * dt
     if (this.x > 600) {
       this.x = -100;
@@ -27,64 +29,68 @@ Enemy.prototype.update = function(dt) {
   }
 };
 
-// Draw the enemy on the screen, required method for game
+// Draws the enemy on the screen
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+//Player object. Function takes into account coordinates and image
 var Player = function(x, y) {
-  //add player class info
   this.x = x;
   this.y = y;
   this.sprite = 'images/char-horn-girl.png';
 };
 
+//Function resets player to original (x,y) location when called
 Player.prototype.reset = function () {
   this.x = 200;
   this.y = 400;
 };
 
+//Function updates the player's location. If player reaches the water or is hit by an enemy,
+//function calls this.reset and resets player to original (x,y) coordinates. Also calculates
+//score and runs the endGame function if applicable
 Player.prototype.update = function() {
-  if (player.y < -8) {
-    player.reset();
-    score += 10;
-    console.log(score);
-    $(".display").text(score);
+  if (this.y < -8) {
+    this.reset();
+    gameScore += 10;
+    console.log(gameScore);
+    $(".display").text(gameScore);
+    endGame();
   }
-  if (player.x < enemy1.x + 70 &&
-   player.x + 70 > enemy1.x &&
-   player.y < enemy1.y + 70 &&
-   70 + player.y > enemy1.y) {
-     score -= 5;
-     console.log(score);
-     $(".display").text(score);
-     player.reset();
-  } else if (player.x < enemy2.x + 70 &&
-   player.x + 70 > enemy2.x &&
-   player.y < enemy2.y + 70 &&
-   70 + player.y > enemy2.y) {
-     score -= 5;
-     console.log(score);
-     $(".display").text(score);
-     player.reset();
-  } else if (player.x < enemy3.x + 70 &&
-   player.x + 70 > enemy3.x &&
-   player.y < enemy3.y + 70 &&
-   70 + player.y > enemy3.y) {
-     score -= 5;
-     console.log(score);
-     $(".display").text(score);
-     player.reset();
+  if (this.x < enemy1.x + 70 &&
+   this.x + 70 > enemy1.x &&
+   this.y < enemy1.y + 70 &&
+   70 + this.y > enemy1.y) {
+     gameScore -= 5;
+     console.log(gameScore);
+     $(".display").text(gameScore);
+     this.reset();
+  } else if (this.x < enemy2.x + 70 &&
+   this.x + 70 > enemy2.x &&
+   this.y < enemy2.y + 70 &&
+   70 + this.y > enemy2.y) {
+     gameScore -= 5;
+     console.log(gameScore);
+     $(".display").text(gameScore);
+     this.reset();
+  } else if (this.x < enemy3.x + 70 &&
+   this.x + 70 > enemy3.x &&
+   this.y < enemy3.y + 70 &&
+   70 + this.y > enemy3.y) {
+     gameScore -= 5;
+     console.log(gameScore);
+     $(".display").text(gameScore);
+     this.reset();
   }
 };
 
+//Draws player image
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Controls player's arrow movements (up, down, left, right)
 Player.prototype.handleInput = function (key) {
   if (key === 'left' && this.x > 0) {
     this.x -= 100
@@ -97,53 +103,61 @@ Player.prototype.handleInput = function (key) {
   }
 };
 
+//Star object. Takes into consideration coordinates and image
 var Star = function (x, y) {
   this.x = x;
   this.y = y;
-  this.count = 0;
   this.sprite = 'images/Star.png';
 };
 
+//Draws star image
 Star.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Randomly chooses new location(x,y) coordinates for star
+//Assistance with function provided by Matthew Prather-Guide
 Star.prototype.reset = function () {
-  this.x = Math.floor(Math.random() * 300) + 120;
-  this.y = Math.floor(Math.random() * 300) + 120;
+  this.x = [000, 100, 200, 300, 400][Math.floor(5* Math.random())];
+  this.y = [60, 145, 230][Math.floor(3* Math.random())];
 };
 
+//Function updates thestar's location. If player touches the star, function
+//calls this.reset and resets player to original (x,y) coordinates. Also
+//calculates score and runs the endGame function if applicable
 Star.prototype.update = function () {
-  if (star.x < player.x + 70 &&
-   star.x + 70 > player.x &&
-   star.y < player.y + 70 &&
-   70 + star.y > player.y) {
-     score += 2;
-     console.log(score);
-     $(".display").text(score);
-     star.reset();
+  if (this.x < player.x + 70 &&
+   this.x + 70 > player.x &&
+   this.y < player.y + 70 &&
+   70 + this.y > player.y) {
+     gameScore += 2;
+     console.log(gameScore);
+     $(".display").text(gameScore);
+     starCount += 1;
+     $(".stardisplay").text(starCount);
+     console.log(starCount);
+     this.reset();
+     endGame();
   }
-
-  if (star.x < enemy1.x + 70 &&
-   star.x + 70 > enemy1.x &&
-   star.y < enemy1.y + 70 &&
-   70 + star.y > enemy1.y) {
-     star.reset();
-  } else if (star.x < enemy2.x + 70 &&
-   star.x + 70 > enemy2.x &&
-   star.y < enemy2.y + 70 &&
-   70 + star.y > enemy2.y) {
-     star.reset();
-  } else if (star.x < enemy3.x + 70 &&
-   star.x + 70 > enemy3.x &&
-   star.y < enemy3.y + 70 &&
-   70 + star.y > enemy3.y) {
-     star.reset();
+  if (this.x < enemy1.x + 70 &&
+   this.x + 70 > enemy1.x &&
+   this.y < enemy1.y + 70 &&
+   70 + this.y > enemy1.y) {
+     this.reset();
+  } else if (this.x < enemy2.x + 70 &&
+   this.x + 70 > enemy2.x &&
+   this.y < enemy2.y + 70 &&
+   70 + this.y > enemy2.y) {
+     this.reset();
+  } else if (this.x < enemy3.x + 70 &&
+   this.x + 70 > enemy3.x &&
+   this.y < enemy3.y + 70 &&
+   70 + this.y > enemy3.y) {
+     this.reset();
   }
 };
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+
+// Enemy array, instantiated from Enemy object. Creates three enemies
 var enemy1 = new Enemy (000, 60, 10);
 var enemy2 = new Enemy (000, 145, 10);
 var enemy3 = new Enemy (000, 230, 10);
@@ -153,12 +167,14 @@ var allEnemies = [
   enemy3
 ];
 
+//Player variable, instantiated from Player object. Creates one player
 var player = new Player(200, 400);
 
+//Star variable, instantiated from Star object. Creates one star
 var star = new Star(100, 75);
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// This listens for key presses and sends the keys to the
+// Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
@@ -169,3 +185,12 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+//Solution to preventing arrow key scrolling found on Stack Overflow:
+//http://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);

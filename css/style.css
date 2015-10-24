@@ -1,27 +1,34 @@
-body {
-    text-align: center;
-}
-
+/*Universal styling*/
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   font-family: 'Oswald', sans-serif;
+  font-weight: bold;
+  background-color: #9CF;
 }
 
-header {
-  margin-bottom: -70px;
+/*Body text alignment*/
+body {
+    text-align: center;
 }
 
+/*Instruction styling*/
 .instruct {
-  font-size: 1.75em;
-  margin-bottom: -25px;
+  font-size: 1.85em;
+  margin-bottom: -15px;
 }
 
+/*Game score/points and star count styling*/
 .points {
-  font-size: 1.75em;
+  font-size: 1.25em;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: -500px;
+  display: inline-block;
 }
 
+/*Contact icon row styling*/
 .icon {
   margin-top: 2.5%;
   padding: 2.5%;
