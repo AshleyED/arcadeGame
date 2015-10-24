@@ -1,6 +1,18 @@
-frontend-nanodegree-arcade-game
-===============================
+***How to Start the Game***
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+To start the game, simply open the index.html file with a browser, such
+as Chrome or Firefox. The game will begin to run automatically.
 
-for self-checking their submission.
+***How to Play the Game***
+
+The objective of the game is to collect 10 Stars and gain 200 Points.
+  -Each Star is worth 2 points
+  -Touching the water is worth 10 points
+  -Getting hit by an enemy loses you 5 points
+
+Move the player using the arrow keys (up, down, left, right). The player
+can move to any space on the board. If the player is hit by an enemy, it
+will reset the player to its original starting block. The same will happen
+if the player reaches the water.
+
+***ENJOY!***
